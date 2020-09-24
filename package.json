@@ -1,0 +1,22 @@
+{
+  "name": "graph-pl-dir",
+  "version": "0.0.1",
+  "description": "Proyecto del Curso basico GraphQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johan-avila/graph-pl-dir.git"
+  },
+  "keywords": [
+    "GraphQL"
+  ],
+  "author": "@johan-avila",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johan-avila/graph-pl-dir/issues"
+  },
+  "homepage": "https://github.com/johan-avila/graph-pl-dir#readme"
+}
