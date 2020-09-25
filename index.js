@@ -1,42 +1,43 @@
-// 'use strict'
+'use strict'
 
-const { graphql, buildSchema} = require("graphql");
-const express =require("express")
-const graphqlHttp =require("express-graphql")
-const {config}= require("./config/config")
+//No eliminamos GRAPHQL POR COMPLETO, SOLO NOS TRAEMOS Tools Para hacer la vida mas facil
+const express = require('express')
+const { config } = require('./config/config')
+const { readFile, readFileSync }= require("fs")
+const { join } = require("path")
 
-const app = express();
+const { graphqlHTTP } = require('express-graphql')
+const { makeExecutableSchema} = require('graphql-tools')
+
+// Config Resolvers
+const resolvers = require("./lib/resolvers")
+
+//App
+const app = express()
 const port = config.port
-// console.log(port); 
+// PORT//URI
+
+// Definir Schema 
+// Un schema es lo que me define que va a hacer mi API
+////Leer archivo del schema
+const typeDeFs = readFileSync(
+    join(__dirname, "lib", "schema.graphql"),
+    "utf-8"
+)
+const schema = makeExecutableSchema({
+    typeDefs: typeDeFs,
+    resolvers:  resolvers
+})
 
 
-//PORT//URI
 
-//Definir Schema inicial
-//Un schema es lo que me define que va a hacer mi API
-const Schema = buildSchema(`
-    type Query {
-        hello: String
-        saludo: String
-        phone: Int
-    }
-`);
-//resolvers
-const resolvers = {
-    hello: () => {
-        return "Hola mundo "
-    },
-    saludo: ()=>{
-        return "Saludo al mundo"
-    },
-    phone: ()=>{
-        return 554025145 //So
-    }
-}
+// Middleware
+app.use('/api', graphqlHTTP({
+  schema: schema,
+  rootValue: resolvers,
+  graphiql: true // ES EL ENTORNO DE EJECUCION DE GRAPHQL QUE VAMOS A EJECUTAR
+}))
 
-//Ejecutar el query hello 
-graphql(Schema, '{ phone }', resolvers)
-    .then( data => {
-      console.log(data);
-    })
-    .catch(err=> console.log(err))
+app.listen(port, () => {
+  console.log(`App listen on port ${port}`)
+})
