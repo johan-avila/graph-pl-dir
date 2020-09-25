@@ -20,7 +20,7 @@ type Query {
   
 }
 
-type CourseInput {
+input CourseInput {
     title: String!
     teacher: String!
     description: String!
