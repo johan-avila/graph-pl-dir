@@ -14,7 +14,7 @@ const resolvers = require("./lib/resolvers")
 
 //App
 const app = express()
-const port = config.port
+const port = config.port || 3000
 // PORT//URI
 
 // Definir Schema 
