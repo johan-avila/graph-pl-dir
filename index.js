@@ -38,6 +38,8 @@ app.use('/api', graphqlHTTP({
   graphiql: true // ES EL ENTORNO DE EJECUCION DE GRAPHQL QUE VAMOS A EJECUTAR
 }))
 
+
+
 app.listen(port, () => {
   console.log(`App listen on port ${port}`)
 })
