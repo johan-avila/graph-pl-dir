@@ -1,10 +1,13 @@
-# type Query {
-#   hello: String
-# }
+"Valido los Tipos de Nivel"
+enum Level {
+  principiente
+  intermedio
+  avanzado
+}
 
-"""
-SCHEMAS
-"""
+
+"SCHEMAS"
+
 type Course {
   _id: ID!
   title: String!
@@ -12,6 +15,7 @@ type Course {
   description: String!
   topic: String!
   people: [Student]
+  level: Level
 }
 
 type Student {
@@ -20,9 +24,9 @@ type Student {
   email: String!
 }
 
-"""
-QUERY'S
-"""
+
+"QUERY'S"
+
 type Query {
   ### Courses
   "Devuelve todos los cursos"
@@ -37,20 +41,21 @@ type Query {
   getStudent(_id: ID): Student
 }
 
-"""
-INPUTS
-"""
+"INPUTS"
 input CourseInput {
   title: String!
   teacher: String!
   description: String!
   topic: String!
+  level: Level 
 }
 input CourseEditInput {
   title: String
   teacher: String
   description: String
   topic: String
+  level: Level 
+
 }
 input StudentInput{
   name: String!
@@ -61,9 +66,7 @@ input StudentEditInput{
   email: String
 }
 
-"""
-MUTATIONS
-"""
+"MUTATIONS"
 type Mutation {
   ###Courses
   "Crear un curso"
