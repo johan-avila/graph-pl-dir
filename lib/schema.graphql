@@ -1,4 +1,5 @@
 "Valido los Tipos de Nivel"
+
 enum Level {
   principiente
   intermedio
@@ -6,6 +7,12 @@ enum Level {
 }
 
 
+" INTERFACES"
+interface Person {
+  _id: ID!
+  name: String!
+  email: String!
+}
 "SCHEMAS"
 
 type Course {
@@ -13,7 +20,7 @@ type Course {
   title: String!
   teacher: String!
   description: String!
-  topic: String!
+  topic: String! @deprecated
   people: [Student]
   level: Level
 }
@@ -24,13 +31,6 @@ type Student implements Person {
   email: String!
   avatar: String
 }
-" INTERFACES"
-
-interface Person {
-  _id: ID!
-  name: String!
-  email: String!
-}
 
 type Monitor implements Person{
   _id: ID!
@@ -38,6 +38,9 @@ type Monitor implements Person{
   email: String!
   phone: String
 }
+
+"UNIONS"
+union GlobalSearch = Course | Student | Monitor
   
 "QUERY'S"
 
@@ -50,10 +53,15 @@ type Query {
 
   ### Students
   "Devuelve todos los Students"
-  getStudents: [Student]
+  getPeople: [Person]
   "Get one student"
-  getStudent(_id: ID): Student
+  getPerson(_id: ID): Person
+  ###Global search
+  "Ejecuta una busqueda global"
+  searchItems(keyword: String!): [GlobalSearch]
 }
+
+
 
 "INPUTS"
 input CourseInput {
@@ -71,13 +79,17 @@ input CourseEditInput {
   level: Level 
 
 }
-input StudentInput{
+input PersonInput{
   name: String!
   email: String!
+  phone:String
+  avatar:String
 }
-input StudentEditInput{
+input PersonEditInput{
   name: String
   email: String
+  phone:String
+  avatar:String
 }
 
 "MUTATIONS"
@@ -88,10 +100,11 @@ type Mutation {
   "Edita un Curso"
   editCourse(_id: ID!, input: CourseEditInput): Course
   ###Students  
-  "Crear Student"
-  createStudent(input: StudentInput!):Student
-  "Edit Student"
-  editStudent(_id: ID!, input: StudentEditInput): Student
+  "Crear Persona"
+  createPerson(input: PersonInput!):Person
+  "Edit Persona"
+  editPerson(_id: ID!, input: PersonEditInput): Person
   "Agregar persona a Curso"
   addPeople(courseId: ID!, personId: ID!):Course
+  # Me faltan los Delete
 }

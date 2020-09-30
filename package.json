@@ -4,7 +4,7 @@
   "description": "Proyecto del Curso basico GraphQL",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "NODE_ENV=production node index",
     "dev": "nodemon -e js, graphql index",
     "lint": "standard",
     "lint-fix": "standard --fix"
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/johan-avila/graph-pl-dir#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-graphql": "^0.11.0",
