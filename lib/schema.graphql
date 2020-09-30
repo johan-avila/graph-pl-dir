@@ -18,13 +18,27 @@ type Course {
   level: Level
 }
 
-type Student {
+type Student implements Person {
+  _id: ID!
+  name: String!
+  email: String!
+  avatar: String
+}
+" INTERFACES"
+
+interface Person {
   _id: ID!
   name: String!
   email: String!
 }
 
-
+type Monitor implements Person{
+  _id: ID!
+  name: String!
+  email: String!
+  phone: String
+}
+  
 "QUERY'S"
 
 type Query {
