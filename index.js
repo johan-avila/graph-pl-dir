@@ -40,7 +40,7 @@ app.use(cors()  )
 app.use('/api', graphqlHTTP({
   schema: schema,
   rootValue: resolvers,
-  graphiql: isDev, // ES EL ENTORNO DE EJECUCION DE GRAPHQL QUE VAMOS A EJECUTAR
+  graphiql: true, // ES EL ENTORNO DE EJECUCION DE GRAPHQL QUE VAMOS A EJECUTAR
   
 }))
 
